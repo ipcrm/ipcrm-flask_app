@@ -28,7 +28,7 @@ describe 'flask_app webhead define' do
       end
 
       describe command('curl --silent http://localhost:80') do
-          its(:stdout) { should match /puppet/ }
+          its(:stdout) { should match /html/ }
       end
 
   end
