@@ -1,0 +1,32 @@
+{
+  "name": "ipcrm-flask_app",
+  "version": "0.0.1",
+  "author": "ipcrm",
+  "summary": "Flask App, Puppet Application Module",
+  "license": "Apache-2.0",
+  "source": "https://github.com/ipcrm/flask_app",
+  "project_page": "https://github.com/ipcrm/flask_app",
+  "issues_url": "https://github.com/ipcrm/flask_app/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.12.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ]
+}
