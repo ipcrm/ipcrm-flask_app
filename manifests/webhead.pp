@@ -66,7 +66,7 @@ define flask_app::webhead (
   exec { "pip install ${local_archive}":
     refreshonly => true,
     path        => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin',
-    command     => "pip install ${local_archive} --upgrade",
+    command     => "pip install /var/tmp/${local_archive} --upgrade",
     notify      => Service['httpd'],
     require     => Remote_file[$local_archive],
   }
