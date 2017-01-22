@@ -31,8 +31,10 @@ group :development, :unit_tests do
   gem 'json_pure', '<= 2.0.1' if RUBY_VERSION < '2.0.0'
 end
 group :system_tests do
-  gem 'beaker',       :git => 'https://github.com/ipcrm/beaker.git',
-                      :ref => 'a60391e0dc257b87ff372bbffd424d1c46e4b55d'
+  gem 'beaker',        :git => 'https://github.com/ipcrm/beaker.git',
+                       :ref => 'a60391e0dc257b87ff372bbffd424d1c46e4b55d'
+  gem 'puppet-syntax', :git => 'https://github.com/ipcrm/puppet-syntax.git',
+                       :ref => 'cb51026e5664aad04a4162ba254b75dca8bf10d6'
   gem 'beaker-rspec'
   gem 'serverspec'
   gem 'beaker-puppet_install_helper'
