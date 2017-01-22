@@ -12,6 +12,7 @@ describe 'flask_app webhead define' do
         }
         flask_app::webhead {'beaker_test':
           app_name => 'webui',
+          local_archive => 'flask_app_webui.tar.gz'
         }
         EOS
 

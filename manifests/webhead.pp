@@ -1,11 +1,18 @@
 define flask_app::webhead (
-  $dist_file,
-  $local_archive,
   $app_name,
+  $local_archive,
+  $dist_file = undef,
+  $dist_lookup_string = "${::role}-${::appenv}-dist_file",
   $vhost_name = $::fqdn,
   $vhost_port = '80',
   $doc_root = '/var/www/flask',
 ){
+
+  if $dist_file == undef {
+    $_dist_file = hiera($dist_lookup_string)
+  } else {
+    $_dist_file = $dist_file
+  }
 
   package{'python-pip':
     ensure  => present,
@@ -51,7 +58,7 @@ define flask_app::webhead (
   remote_file { $local_archive:
     ensure  => latest,
     path    => "/var/tmp/${local_archive}",
-    source  => $dist_file,
+    source  => $_dist_file,
     notify  => Exec["pip install ${local_archive}"],
     require => [ Class['apache'], Apache::Vhost[$::fqdn] ],
   }
