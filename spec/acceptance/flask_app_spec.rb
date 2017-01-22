@@ -10,7 +10,7 @@ describe 'flask_app webhead define' do
         class {'::apache':
           default_vhost => false,
         }
-        flask_app::webhead {
+        flask_app::webhead {'beaker_test':
           app_name => 'webui',
         }
         EOS
