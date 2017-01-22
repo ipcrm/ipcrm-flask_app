@@ -6,6 +6,7 @@ describe 'flask_app webhead define' do
       # Using puppet_apply as a helper
       it 'should work idempotently with no errors' do
         pp = <<-EOS
+        include ::epel
         package {'wget': ensure => present, }
         class {'::apache':
           default_vhost => false,
