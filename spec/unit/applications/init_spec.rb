@@ -7,6 +7,10 @@ describe 'flask_app', :type => :application do
         facts
       end
 
+      facts[:role]   = 'flask_puppet'
+      facts[:appenv] = 'dev'
+      facts[:fqdn]   = 'test.puppet.com'
+
       context "on a single node setup" do
         let(:title) { 'getting-started' }
         let(:node) { 'test.puppet.com' }
@@ -14,10 +18,10 @@ describe 'flask_app', :type => :application do
         let :params do
           {
             :app_name  => 'testui',
-            :dist_file => 'puppet_flask_test',
+            :dist_file => 'https://testrepo/puppet_flask_test.tar.gz',
             :nodes => {
               ref('Node', node) => [
-                ref('Flask_puppet::Webhead', 'getting-started'),
+                ref('Flask_app::Webhead', 'getting-started'),
               ]
             }
           }
@@ -25,39 +29,48 @@ describe 'flask_app', :type => :application do
 
         context 'with defaults for all parameters' do
           let(:pre_condition){'
-            class { "::apache": }
+            class { "::apache":
+              default_vhost => false,
+            }
           '}
           it { should compile }
           it { should contain_flask_app(title).with(
-            'app_name' => 'testui',
-            'dist_file' => 'puppet_flask_test'
+            'app_name'  => 'testui',
+            'dist_file' => 'https://testrepo/puppet_flask_test.tar.gz'
           ) }
 
           it { should contain_flask_app__webhead("getting-started").with(
+            'dist_file'     => 'https://testrepo/puppet_flask_test.tar.gz',
             'local_archive' => 'testui_archive.tar.gz',
-            'app_name'     => 'testui',
-            'vhost_name' => 'test.puppet.com',
-            'vhost_port'  => '80',
-            'doc_root'    => '/var/www/flask'
+            'app_name'      => 'testui',
+            'vhost_name'    => 'test.puppet.com',
+            'vhost_port'    => '80',
+            'doc_root'      => '/var/www/flask'
           ) }
 
           it { should contain_file('/var/www').with(
-                        'ensure' => 'directory',
+            'ensure' => 'directory',
           ) }
 
           it { should contain_file('/var/www/flask').with(
-                        'ensure' => 'directory',
+           'ensure' => 'directory',
           ) }
 
           it { is_expected.to contain_file('/var/www/flask/wsgi.py').with_content(/from testui import testui as application/) }
 
           it { should contain_apache__vhost('test.puppet.com').with(
             'port'               => '80',
-            'doc_root'           => '/var/www/flask',
+            'docroot'            => '/var/www/flask',
             'wsgi_import_script' => '/var/www/flask/wsgi.py',
           ) }
 
+          it { should contain_exec('pip install testui_archive.tar.gz') }
+          it { should contain_remote_file('testui_archive.tar.gz') }
+          it { should contain_flask_app_http('getting-started') }
+          it { should contain_package('python-pip').with( 'ensure' => 'present' ) }
         end
+
+
       end
     end
   end

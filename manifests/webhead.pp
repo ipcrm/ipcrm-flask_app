@@ -1,4 +1,4 @@
-define apps::flask_puppet::webhead (
+define flask_app::webhead (
   $dist_file,
   $local_archive,
   $app_name,
@@ -24,7 +24,7 @@ define apps::flask_puppet::webhead (
   file { "${doc_root}/wsgi.py":
     ensure  => present,
     mode    => '0755',
-    content => template('flask_puppet/wsgi.py.erb'),
+    content => template('flask_app/wsgi.py.erb'),
   } ->
 
   apache::vhost { $vhost_name:
@@ -65,7 +65,7 @@ define apps::flask_puppet::webhead (
   }
 
 }
-Apps::Flask_puppet::Webhead produces Flask_puppet_http {
+Flask_app::Webhead produces Flask_app_http {
   name => $name,
   host => $::hostname,
   ip   => $::ipaddress,
