@@ -22,6 +22,7 @@ RSpec.configure do |c|
       on host, puppet('module', 'install', 'puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module', 'install', 'puppetlabs-app_modeling'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module', 'install', 'puppetlabs-apache'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module', 'install', 'lwf-remote_file'), { :acceptable_exit_codes => [0,1] }
       if ENV['BEAKER_custom_hiera'] == 'true'
         on host, puppet('module', 'install', 'crayfishx-hiera_http'), { :acceptable_exit_codes => [0,1] }
         shell '/opt/puppetlabs/puppet/bin/gem install hiera-http -v 1.4.0', :acceptable_exit_codes => [0]
