@@ -1,0 +1,8 @@
+fixtures:
+  repositories:
+    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    apache:
+      repo: "https://github.com/puppetlabs/puppetlabs-apache.git"
+      ref: "1.11.0"
+  symlinks:
+    flask_app: "#{source_dir}"
