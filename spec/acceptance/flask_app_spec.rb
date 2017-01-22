@@ -11,7 +11,7 @@ describe 'flask_app webhead define' do
           default_vhost => false,
         }
         flask_app::webhead {
-          $app_name => 'webui',
+          app_name => 'webui',
         }
         EOS
 
