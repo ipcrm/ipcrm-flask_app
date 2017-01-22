@@ -27,7 +27,7 @@ RSpec.configure do |c|
         shell '/opt/puppetlabs/puppet/bin/gem install hiera-http -v 1.4.0', :acceptable_exit_codes => [0]
         scp_to(host, 'hiera.yaml', '/etc/puppetlabs/puppet/hiera.yaml')
         shell 'echo "role: flask_puppet" >> /opt/puppetlabs/facter/facts.d/role.yaml'
-        shell 'echo "appenv: beaker" >> /opt/puppetlabs/facter/facts.d/role.yaml'
+        shell 'echo "appenv: flask_puppet_beaker" >> /opt/puppetlabs/facter/facts.d/role.yaml'
       end
 
     end

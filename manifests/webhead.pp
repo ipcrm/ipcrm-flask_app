@@ -2,7 +2,7 @@ define flask_app::webhead (
   $app_name,
   $local_archive,
   $dist_file = undef,
-  $dist_lookup_string = "${::role}-${::appenv}-dist_file",
+  $dist_lookup_string = "${::appenv}-dist_file",
   $vhost_name = $::fqdn,
   $vhost_port = '80',
   $doc_root = '/var/www/flask',
