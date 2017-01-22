@@ -1,8 +1,8 @@
 application flask_app (
   String $app_name,
   String $dist_lookup_string        = "${::appenv}-dist_file",
-  String $dist_file                 = undef,
   String $local_archive             = "${app_name}_archive.tar.gz",
+  Variant[Undef,String] $dist_file  = undef,
   Variant[Undef,String] $vhost_name = undef,
   Variant[Undef,String] $vhost_port = undef,
   Variant[Undef,String] $doc_root   = undef,
