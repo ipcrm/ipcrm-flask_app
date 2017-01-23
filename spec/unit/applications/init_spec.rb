@@ -41,7 +41,6 @@ describe 'flask_app', :type => :application do
 
           it { should contain_flask_app__webhead("getting-started").with(
             'dist_file'     => 'https://testrepo/puppet_flask_test.tar.gz',
-            'local_archive' => 'testui_archive.tar.gz',
             'app_name'      => 'testui',
             'vhost_name'    => 'test.puppet.com',
             'vhost_port'    => '80',
@@ -64,11 +63,12 @@ describe 'flask_app', :type => :application do
             'wsgi_import_script' => '/var/www/flask/wsgi.py',
           ) }
 
-          it { should contain_exec('pip install testui_archive.tar.gz') }
-          it { should contain_remote_file('testui_archive.tar.gz') }
+          it { should contain_exec('pip install puppet_flask_test.tar.gz') }
+          it { should contain_remote_file('puppet_flask_test.tar.gz') }
           it { should contain_flask_app_http('getting-started') }
           it { should contain_package('python-pip').with( 'ensure' => 'present' ) }
         end
+      end
 
     context "single node setup - customized" do
       let(:title) { 'custom-deployment' }
@@ -77,7 +77,7 @@ describe 'flask_app', :type => :application do
       let :params do
         {
           :app_name   => 'apptest',
-          :dist_file  => 'https://testrepo/puppet_flask_test.tar.gz',
+          :dist_file  => 'https://testrepo/puppet_flask-0.1.5.tar.gz',
           :doc_root   => '/var/www/root',
           :vhost_port => '8080',
           :nodes => {
@@ -97,12 +97,11 @@ describe 'flask_app', :type => :application do
           it { should compile }
           it { should contain_flask_app(title).with(
             'app_name'  => 'apptest',
-            'dist_file' => 'https://testrepo/puppet_flask_test.tar.gz'
+            'dist_file' => 'https://testrepo/puppet_flask-0.1.5.tar.gz'
           ) }
 
           it { should contain_flask_app__webhead("custom-deployment").with(
-            'dist_file'     => 'https://testrepo/puppet_flask_test.tar.gz',
-            'local_archive' => 'apptest_archive.tar.gz',
+            'dist_file'     => 'https://testrepo/puppet_flask-0.1.5.tar.gz',
             'app_name'      => 'apptest',
             'vhost_name'    => 'test.puppet.com',
             'vhost_port'    => '8080',
@@ -125,14 +124,13 @@ describe 'flask_app', :type => :application do
             'wsgi_import_script' => '/var/www/root/wsgi.py',
           ) }
 
-          it { should contain_exec('pip install apptest_archive.tar.gz') }
-          it { should contain_remote_file('apptest_archive.tar.gz') }
+          it { should contain_exec('pip install puppet_flask-0.1.5.tar.gz') }
+          it { should contain_remote_file('puppet_flask-0.1.5.tar.gz') }
           it { should contain_flask_app_http('custom-deployment') }
           it { should contain_package('python-pip').with( 'ensure' => 'present' ) }
         end
       end
-     end
-    end
+
+    end 
   end
 end
-

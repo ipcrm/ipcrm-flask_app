@@ -1,6 +1,5 @@
 define flask_app::webhead (
   $app_name,
-  $local_archive,
   $dist_file = undef,
   $dist_lookup_string = "${::appenv}-dist_file",
   $vhost_name = $::fqdn,
@@ -13,6 +12,8 @@ define flask_app::webhead (
   } else {
     $_dist_file = $dist_file
   }
+
+  $_local_archive = basename($_dist_file)
 
   package{'python-pip':
     ensure  => present,
@@ -55,20 +56,20 @@ define flask_app::webhead (
     },
   }
 
-  remote_file { $local_archive:
+  remote_file { $_local_archive:
     ensure  => latest,
-    path    => "/var/tmp/${local_archive}",
+    path    => "/var/tmp/${_local_archive}",
     source  => $_dist_file,
-    notify  => Exec["pip install ${local_archive}"],
+    notify  => Exec["pip install ${_local_archive}"],
     require => [ Class['apache'], Apache::Vhost[$::fqdn] ],
   }
 
-  exec { "pip install ${local_archive}":
+  exec { "pip install ${_local_archive}":
     refreshonly => true,
     path        => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin',
-    command     => "pip install /var/tmp/${local_archive} --upgrade",
+    command     => "pip install /var/tmp/${_local_archive} --upgrade",
     notify      => Service['httpd'],
-    require     => Remote_file[$local_archive],
+    require     => Remote_file[$_local_archive],
   }
 
 }

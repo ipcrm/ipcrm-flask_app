@@ -1,7 +1,6 @@
 application flask_app (
   String $app_name,
   String $dist_lookup_string        = "${::appenv}-dist_file",
-  String $local_archive             = "${app_name}_archive.tar.gz",
   Variant[Undef,String] $dist_file  = undef,
   Variant[Undef,String] $vhost_name = undef,
   Variant[Undef,String] $vhost_port = undef,
@@ -12,7 +11,6 @@ application flask_app (
     app_name           => $app_name,
     dist_file          => $dist_file,
     dist_lookup_string => $dist_lookup_string,
-    local_archive      => $local_archive,
     vhost_name         => $vhost_name,
     vhost_port         => $vhost_port,
     doc_root           => $doc_root,
