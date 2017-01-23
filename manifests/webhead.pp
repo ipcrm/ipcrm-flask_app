@@ -58,7 +58,7 @@ define flask_app::webhead (
 
   remote_file { $_local_archive:
     ensure  => latest,
-    path    => "/var/tmp/${_local_archive}",
+    path    => "/usr/local/src/${_local_archive}",
     source  => $_dist_file,
     notify  => Exec["pip install ${_local_archive}"],
     require => [ Class['apache'], Apache::Vhost[$::fqdn] ],
@@ -67,7 +67,7 @@ define flask_app::webhead (
   exec { "pip install ${_local_archive}":
     refreshonly => true,
     path        => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin',
-    command     => "pip install /var/tmp/${_local_archive} --upgrade",
+    command     => "pip install /usr/local/src/${_local_archive} --upgrade",
     notify      => Service['httpd'],
     require     => Remote_file[$_local_archive],
   }
