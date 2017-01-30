@@ -14,3 +14,8 @@ SimpleCov.start do
     SimpleCov::Formatter::Console
   ])
 end
+
+RSpec.configure do |c|
+  # Readable test descriptions
+  c.formatter = :documentation
+end
