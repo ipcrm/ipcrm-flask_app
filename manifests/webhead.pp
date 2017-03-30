@@ -17,23 +17,23 @@ define flask_app::webhead (
 
   package{'python-pip':
     ensure  => present,
-  } ->
+  }
 
   file {'/var/www':
     ensure => directory,
     mode   => '0755',
-  } ->
+  }
 
   file {$doc_root:
     ensure => directory,
     mode   => '0755',
-  } ->
+  }
 
   file { "${doc_root}/wsgi.py":
     ensure  => present,
     mode    => '0755',
     content => template('flask_app/wsgi.py.erb'),
-  } ->
+  }
 
   apache::vhost { $vhost_name:
     port                        => $vhost_port,
