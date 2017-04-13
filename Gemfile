@@ -22,7 +22,8 @@ group :development, :unit_tests do
   gem 'puppetlabs_spec_helper', '>= 1.2.1'
   gem 'simplecov'
   gem 'simplecov-console'
-  gem 'rspec-puppet'
+  gem 'rspec-puppet', :git => 'https://github.com/rodjek/rspec-puppet.git',
+                      :ref => '8358f0a649148b0af2b99177f16a6fa150e2a4b0'
   gem 'rspec-puppet-facts'
   gem 'parallel_tests'
   gem 'rubocop', '0.41.2' if RUBY_VERSION < '2.0.0'
@@ -31,10 +32,8 @@ group :development, :unit_tests do
   gem 'json_pure', '<= 2.0.1' if RUBY_VERSION < '2.0.0'
 end
 group :system_tests do
-  gem 'beaker',        :git => 'https://github.com/ipcrm/beaker.git',
-                       :ref => 'a60391e0dc257b87ff372bbffd424d1c46e4b55d'
-  gem 'puppet-syntax', :git => 'https://github.com/ipcrm/puppet-syntax.git',
-                       :ref => 'cb51026e5664aad04a4162ba254b75dca8bf10d6'
+  gem 'beaker',       :git => 'https://github.com/ipcrm/beaker.git',
+                      :ref => 'a60391e0dc257b87ff372bbffd424d1c46e4b55d'
   gem 'beaker-rspec'
   gem 'serverspec'
   gem 'beaker-puppet_install_helper'
